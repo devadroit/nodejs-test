@@ -1,6 +1,8 @@
 const express = require("express");
 const cors = require("cors");
 
+const userRoutes = require("../routes/user");
+
 class Server {
   constructor() {
     this.app = express();
@@ -8,6 +10,7 @@ class Server {
 
     this.paths = {
       health: "/api/health",
+      users: "/api/users",
     };
 
     //Middlewares
@@ -31,6 +34,8 @@ class Server {
     this.app.use(this.paths.health, (req, res) => {
       res.json({ status: "ok", timestamp: new Date().toISOString() });
     });
+
+    this.app.use(this.paths.users, userRoutes);
   }
 
   listen() {
