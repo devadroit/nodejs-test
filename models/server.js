@@ -2,6 +2,7 @@ const express = require("express");
 const cors = require("cors");
 
 const userRoutes = require("../routes/user");
+const externalData = require("../routes/external-data");
 const dbMongoConnection = require("../database/connection");
 
 class Server {
@@ -12,6 +13,7 @@ class Server {
     this.paths = {
       health: "/api/health",
       users: "/api/users",
+      externalData: "/api/external-data"
     };
 
     //Middlewares
@@ -40,6 +42,7 @@ class Server {
     });
 
     this.app.use(this.paths.users, userRoutes);
+    this.app.use(this.paths.externalData, externalData);
   }
 
   

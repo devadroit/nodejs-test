@@ -5,11 +5,11 @@ const dbMongoConnection = () => {
   mongoose
     .connect(DB_URI, {})
     .then((res) => {        
-      console.log("**** SUCCESSFUL CONNECTION ****");
+      console.log("**** DATABASE MONGODB SUCCESSFUL CONNECTION ****");
     })
     .catch((err) => {
       console.log(err);
-      console.log("**** DATABASE ERROR CONNECTION ****");
+      console.log("**** DATABASE MONGODB ERROR CONNECTION ****");
     });
 };
 
