@@ -1,26 +1,35 @@
 const { response, request } = require("express");
 
-const getUser = async (req = request, res = response) => {
-  const { id } = req.params;
-  if (!id) return res.status(404).json({ msg: `Please give an ID.` });
+const UserScheme = require("../models/users");
+const { handleHttpError } = require("../utils/handleHttpError");
 
-  res.json({
-    id: "123",
-    name: "John Doe",
-    email: "john.doe@example.com",
-  });
+const getUser = async (req = request, res = response) => {
+  try {
+    const { id } = req.params;
+    if (!id) return res.status(404).json({ msg: `Please give an ID.` });
+    //66483167dd58a2f282335d02
+    const user = await UserScheme.findOne({ _id: id });
+
+    res.json(user);
+  } catch (error) {
+    console.log("error", error.message);
+    handleHttpError(res, "User doesn't exists.");
+  }
 };
 
 const postUser = async (req, res = response) => {
-  const { body } = req;
+  try {
+    const { body } = req;
 
-  const { name, email, password} = body;
+    const { name, email, password } = body;
 
-  res.json({
-    name,
-    email,
-    password
-  });
+    const user = await UserScheme.create({ name, email, password });
+
+    res.json(user);
+  } catch (error) {
+    console.log("error", error.message);
+    handleHttpError(res, "Email alredy exists.");
+  }
 };
 
 module.exports = {
