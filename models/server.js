@@ -2,6 +2,7 @@ const express = require("express");
 const cors = require("cors");
 
 const userRoutes = require("../routes/user");
+const dbMongoConnection = require("../database/connection");
 
 class Server {
   constructor() {
@@ -28,6 +29,9 @@ class Server {
 
     //Directorio Public
     this.app.use(express.static("public"));
+    
+    // database connection
+    dbMongoConnection();
   }
 
   routes() {
@@ -37,6 +41,8 @@ class Server {
 
     this.app.use(this.paths.users, userRoutes);
   }
+
+  
 
   listen() {
     this.app.listen(this.port, () => {
