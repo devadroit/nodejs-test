@@ -12,7 +12,6 @@ const getUser = async (req = request, res = response) => {
 
     res.json(user);
   } catch (error) {
-    console.log("error", error.message);
     handleHttpError(res, "User doesn't exists.");
   }
 };
@@ -20,12 +19,12 @@ const getUser = async (req = request, res = response) => {
 const postUser = async (req, res = response) => {
   try {
     const { body } = req;
-
+    
     const { name, email, password } = body;
 
     const user = await UserScheme.create({ name, email, password });
 
-    res.json(user);
+    res.status(201).json(user);
   } catch (error) {
     console.log("error", error.message);
     handleHttpError(res, "Email alredy exists.");

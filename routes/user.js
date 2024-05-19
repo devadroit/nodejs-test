@@ -19,4 +19,4 @@ router.post(
   postUser
 );
 
-module.exports = router;
+module.exports = (app) => app.use("/api/users", router);

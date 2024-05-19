@@ -9,7 +9,10 @@ const getExternalData = async (req = request, res = response) => {
     if (city == null) throw new Error("City is required.");
 
     const weatherResp = await getWeatherFromCity(city);
+
     const weather = weatherResp.list[0];
+    if (weather == undefined || weather == null)
+      throw new Error("City don't found.");
     const resp = {
       city: weather.name,
       temperature: (weather.main.temp - 273.15).toFixed(2),
