@@ -1,10 +1,16 @@
 const express = require("express");
 const cors = require("cors");
 
+// mongo database connection
+const dbMongoConnection = require("../database/connection");
+
+// swagger documentation
+const {swaggerDocs} = require("../routes/swagger");
+
+// routes
 const userRoutes = require("../routes/user");
 const healthRoutes = require("../routes/health");
 const externalDataRoutes = require("../routes/external-data");
-const dbMongoConnection = require("../database/connection");
 
 class Server {
   constructor() {
@@ -51,6 +57,7 @@ class Server {
 ------------------------------------------------------------------
 
              `);
+      swaggerDocs(this.app, this.port);
     });
   }
 }

@@ -46,7 +46,7 @@ describe("[ routes / user ]", () => {
     // change email everytime when test
     const userToCreate = {
       name: "tony",
-      email: "tony@newemail.xyz",
+      email: "tony@novo.xyz",
       password: "tony",
     };
 
